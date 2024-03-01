@@ -1,3 +1,4 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:fake_store_app/consts/global_colors.dart';
 import 'package:fake_store_app/widgets/appbar_icon.dart';
 import 'package:fake_store_app/widgets/sale_widget.dart';
@@ -27,6 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -79,7 +82,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              const SaleWidget(),
+              SizedBox(
+                height: size.height * 0.25,
+                child: Swiper(
+                  itemCount: 4,
+                  pagination: const SwiperPagination(
+                      builder: DotSwiperPaginationBuilder(
+                    color: Colors.white,
+                    activeColor: Colors.redAccent,
+                  )),
+                  itemBuilder: (context, index) => const SaleWidget(),
+                ),
+              ),
             ],
           ),
         ),
