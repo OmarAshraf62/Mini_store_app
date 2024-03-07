@@ -5,7 +5,8 @@ class ProductsGridViewWidget extends StatelessWidget {
   const ProductsGridViewWidget({
     super.key,
     this.showAllItems,
-    required this.itemsCount, required this.isScrollable,
+    required this.itemsCount,
+    required this.isScrollable,
   });
   final bool? showAllItems;
   final int itemsCount;
@@ -22,7 +23,7 @@ class ProductsGridViewWidget extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 4,
         mainAxisSpacing: 4,
-        childAspectRatio: 0.6,
+        childAspectRatio: 0.65,
       ),
       itemBuilder: (context, index) => const ProductItemWidget(),
     );

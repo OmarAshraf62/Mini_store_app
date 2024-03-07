@@ -1,3 +1,4 @@
+import 'package:fake_store_app/screens/all_users_screen.dart';
 import 'package:fake_store_app/screens/categories_screen.dart';
 import 'package:fake_store_app/screens/latest_products_screen.dart';
 import 'package:fake_store_app/widgets/appbar_icon.dart';
@@ -56,8 +57,16 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           actions: [
             AppBarIcons(
-              function: () {},
               icon: IconlyBold.user3,
+              function: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    child: const AllUsersScreen(),
+                    type: PageTransitionType.fade,
+                  ),
+                );
+              },
             ),
           ],
         ),
