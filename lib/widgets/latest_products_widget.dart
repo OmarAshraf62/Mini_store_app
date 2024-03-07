@@ -4,9 +4,9 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 class LatestProducts extends StatelessWidget {
   const LatestProducts({
     super.key,
-    required this.function,
+    required this.onPress,
   });
-  final  Function()? function;
+  final  Function()? onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class LatestProducts extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            onPressed: function,
+            onPressed: onPress,
             icon: const Icon(
               IconlyBold.arrowRightSquare,
               size: 30,

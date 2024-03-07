@@ -1,10 +1,13 @@
+import 'package:fake_store_app/screens/latest_products_screen.dart';
 import 'package:fake_store_app/widgets/appbar_icon.dart';
 import 'package:fake_store_app/widgets/latest_products_widget.dart';
 import 'package:fake_store_app/widgets/product_item.dart';
+import 'package:fake_store_app/widgets/products_gridview.dart';
 import 'package:fake_store_app/widgets/search_field_widget.dart';
 import 'package:fake_store_app/widgets/swiper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -61,18 +64,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 SearchFieldWidget(
                     textEditingController: _textEditingController),
                 SwiperWidget(size: size),
-                LatestProducts(function: () {}),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 5,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 4,
-                    childAspectRatio: 0.6,
-                  ),
-                  itemBuilder: (context, index) => const ProductItemWidget(),
+                LatestProducts(onPress: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      child: const LatestProductsScreen(),
+                    ),
+                  );
+                }),
+                const ProductsGridViewWidget(
+                  itemsCount: 4,
+                  showAllItems: true,
+                  isScrollable: false,
                 ),
               ],
             ),
