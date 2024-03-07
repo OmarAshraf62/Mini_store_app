@@ -1,3 +1,4 @@
+import 'package:fake_store_app/screens/categories_screen.dart';
 import 'package:fake_store_app/screens/latest_products_screen.dart';
 import 'package:fake_store_app/widgets/appbar_icon.dart';
 import 'package:fake_store_app/widgets/latest_products_widget.dart';
@@ -40,7 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading: AppBarIcons(
-            function: () {},
+            function: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const CategoriesScreen(),
+                  type: PageTransitionType.fade,
+                ),
+              );
+            },
             icon: IconlyBold.category,
           ),
           title: const Text('Home'),
