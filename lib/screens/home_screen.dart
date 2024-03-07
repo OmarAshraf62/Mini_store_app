@@ -1,7 +1,6 @@
 import 'package:fake_store_app/screens/latest_products_screen.dart';
 import 'package:fake_store_app/widgets/appbar_icon.dart';
 import 'package:fake_store_app/widgets/latest_products_widget.dart';
-import 'package:fake_store_app/widgets/product_item.dart';
 import 'package:fake_store_app/widgets/products_gridview.dart';
 import 'package:fake_store_app/widgets/search_field_widget.dart';
 import 'package:fake_store_app/widgets/swiper_widget.dart';

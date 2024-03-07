@@ -20,7 +20,7 @@ class SwiperWidget extends StatelessWidget {
         autoplayDelay: 1,
         pagination: const SwiperPagination(
             builder: DotSwiperPaginationBuilder(
-          color: Colors.white,
+          color: Color.fromARGB(255, 85, 54, 54),
           activeColor: Colors.redAccent,
         )),
         itemBuilder: (context, index) => const SaleWidget(),
