@@ -1,3 +1,4 @@
+import 'package:fake_store_app/models/category_model.dart';
 import 'package:fake_store_app/models/product_model.dart';
 import 'package:fake_store_app/screens/all_users_screen.dart';
 import 'package:fake_store_app/screens/categories_screen.dart';
@@ -22,10 +23,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController _textEditingController;
   // List<ProductModel> products = [];
+  List<CategoryModel> categories = [];
   @override
   void initState() {
     _textEditingController = TextEditingController();
-    // getProducts();
+    getCategories();
     super.initState();
   }
 
@@ -41,10 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
   //   super.didChangeDependencies();
   // }
 
-  // Future<void> getProducts() async {
-  //   products = await ProductsService.getAllProducts();
-  //   setState(() {});
-  // }
+  Future<void> getCategories() async {
+    categories = await ProductsService.getAllCategories();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const CategoriesScreen(),
+                  child:  CategoriesScreen(
+                    categories: categories,
+                  ),
                   type: PageTransitionType.fade,
                 ),
               );
