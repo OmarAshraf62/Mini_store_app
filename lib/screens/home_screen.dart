@@ -21,11 +21,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController _textEditingController;
-  List<ProductModel> products = [];
+  // List<ProductModel> products = [];
   @override
   void initState() {
     _textEditingController = TextEditingController();
-    getProducts();
+    // getProducts();
     super.initState();
   }
 
@@ -35,16 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  @override
-  void didChangeDependencies() {
-    getProducts();
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   getProducts();
+  //   super.didChangeDependencies();
+  // }
 
-  Future<void> getProducts() async {
-    products = await ProductsService.getAllProducts();
-    setState(() {});
-  }
+  // Future<void> getProducts() async {
+  //   products = await ProductsService.getAllProducts();
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -99,30 +99,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 18,
                 ),
-                products.isEmpty
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : SwiperWidget(
-                        size: size,
-                        images: products[0].images!,
-                      ),
+                SwiperWidget(
+                  size: size,
+                ),
                 LatestProducts(onPress: () {
                   Navigator.push(
                     context,
                     PageTransition(
                       type: PageTransitionType.fade,
-                      child:  LatestProductsScreen(
-                        products: products,
-                      ),
+                      child: const LatestProductsScreen(),
                     ),
                   );
                 }),
-                ProductsGridViewWidget(
-                  products: products,
-                  itemsCount: 4,
-                  showAllItems: true,
-                  isScrollable: false,
+                FutureBuilder<List<ProductModel>>(
+                  future: ProductsService.getAllProducts(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text("Error happened ${snapshot.error}");
+                    } else if (snapshot.hasError) {
+                      return const Text("No Data yet");
+                    } else {
+                      return ProductsGridViewWidget(
+                        products: snapshot.data!,
+                        itemsCount: 4,
+                        showAllItems: true,
+                        isScrollable: false,
+                      );
+                    }
+                  },
                 ),
               ],
             ),
