@@ -6,12 +6,11 @@ import 'package:fake_store_app/models/product_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProductsService {
-  
-  static Future<void> getAllProducts() async {
+  static Future<List<ProductModel>> getAllProducts() async {
     Uri uri = Uri.https(
-    BASE_URL,
-    'api/v1/products',
-  );
+      BASE_URL,
+      'api/v1/products',
+    );
     List<ProductModel> products = [];
     http.Response response = await http.get(uri);
     if (response.statusCode == 200) {
@@ -20,6 +19,7 @@ class ProductsService {
         products.add(ProductModel.fromJson(productsList[i]));
       }
       log(products.toString());
+      return products;
     } else {
       throw Exception('404 error');
     }

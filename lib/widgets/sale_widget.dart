@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SaleWidget extends StatelessWidget {
-  const SaleWidget({super.key});
-
+  const SaleWidget({super.key, required this.imageUrl});
+  final String imageUrl;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -76,7 +76,7 @@ class SaleWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(14.0),
             child: Image.network(
-              'https://i.ibb.co/vwB46Yq/shoes.png',
+              imageUrl,
               width: double.infinity,
               //height: double.infinity,
             ),

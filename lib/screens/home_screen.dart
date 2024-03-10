@@ -1,3 +1,4 @@
+import 'package:fake_store_app/models/product_model.dart';
 import 'package:fake_store_app/screens/all_users_screen.dart';
 import 'package:fake_store_app/screens/categories_screen.dart';
 import 'package:fake_store_app/screens/latest_products_screen.dart';
@@ -20,9 +21,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController _textEditingController;
+  List<ProductModel> products = [];
   @override
   void initState() {
     _textEditingController = TextEditingController();
+    getProducts();
     super.initState();
   }
 
@@ -30,6 +33,17 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _textEditingController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    getProducts();
+    super.didChangeDependencies();
+  }
+
+  Future<void> getProducts() async {
+    products = await ProductsService.getAllProducts();
+    setState(() {});
   }
 
   @override
@@ -85,17 +99,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 18,
                 ),
-                SwiperWidget(size: size),
+                products.isEmpty
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : SwiperWidget(
+                        size: size,
+                        images: products[0].images!,
+                      ),
                 LatestProducts(onPress: () {
                   Navigator.push(
                     context,
                     PageTransition(
                       type: PageTransitionType.fade,
-                      child: const LatestProductsScreen(),
+                      child:  LatestProductsScreen(
+                        products: products,
+                      ),
                     ),
                   );
                 }),
-                const ProductsGridViewWidget(
+                ProductsGridViewWidget(
+                  products: products,
                   itemsCount: 4,
                   showAllItems: true,
                   isScrollable: false,
@@ -104,9 +128,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          ProductsService.getAllProducts();
-        }),
       ),
     );
   }

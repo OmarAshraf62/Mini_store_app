@@ -1,4 +1,5 @@
 import 'package:fake_store_app/consts/global_colors.dart';
+import 'package:fake_store_app/models/product_model.dart';
 import 'package:fake_store_app/screens/product_detiles_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,9 @@ import 'package:page_transition/page_transition.dart';
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget({
     super.key,
+    required this.product,
   });
-
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -48,7 +50,7 @@ class ProductItemWidget extends StatelessWidget {
                             ),
                             children: <TextSpan>[
                               TextSpan(
-                                  text: '169.00',
+                                  text: product.price.toString(),
                                   style: TextStyle(
                                     color: lightTextColor,
                                     fontWeight: FontWeight.w600,
@@ -67,7 +69,7 @@ class ProductItemWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: FancyShimmerImage(
-                    imageUrl: 'https://i.ibb.co/vwB46Yq/shoes.png',
+                    imageUrl: product.images![0],
                     height: size.height * 0.2,
                     boxFit: BoxFit.fill,
                     errorWidget: const Icon(
@@ -80,13 +82,13 @@ class ProductItemWidget extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'title',
+                    product.title!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),
