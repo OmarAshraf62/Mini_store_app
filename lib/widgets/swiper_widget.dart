@@ -15,13 +15,12 @@ class SwiperWidget extends StatelessWidget {
     return SizedBox(
       height: size.height * 0.25,
       child: Swiper(
-        itemCount: 2,
+        itemCount: 3,
         autoplay: true,
-        autoplayDelay: 1,
         pagination: const SwiperPagination(
             builder: DotSwiperPaginationBuilder(
-          color: Color.fromARGB(255, 85, 54, 54),
-          activeColor: Colors.redAccent,
+          color: Color.fromARGB(186, 229, 225, 225),
+          activeColor: Colors.red,
         )),
         itemBuilder: (context, index) => const SaleWidget(),
       ),
