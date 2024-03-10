@@ -5,7 +5,6 @@ import 'package:fake_store_app/screens/all_users_screen.dart';
 import 'package:fake_store_app/screens/categories_screen.dart';
 import 'package:fake_store_app/screens/latest_products_screen.dart';
 import 'package:fake_store_app/services/products_service.dart';
-import 'package:fake_store_app/services/user_services.dart';
 import 'package:fake_store_app/widgets/appbar_icon.dart';
 import 'package:fake_store_app/widgets/latest_products_widget.dart';
 import 'package:fake_store_app/widgets/products_gridview.dart';
@@ -123,7 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }),
                 FutureBuilder<List<ProductModel>>(
-                  future: ProductsService.getAllProducts(),
+                  future: ProductsService.getAllProducts(
+                    limit: '4'
+                  ),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(

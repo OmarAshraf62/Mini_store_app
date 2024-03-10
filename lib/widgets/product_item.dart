@@ -1,7 +1,6 @@
 import 'package:fake_store_app/consts/global_colors.dart';
 import 'package:fake_store_app/models/product_model.dart';
 import 'package:fake_store_app/screens/product_detiles_screen.dart';
-import 'package:fake_store_app/services/products_service.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';

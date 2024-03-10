@@ -8,16 +8,18 @@ class ProductsGridViewWidget extends StatelessWidget {
     this.showAllItems,
     required this.itemsCount,
     required this.isScrollable,
-    required this.products,
+    required this.products, this.controller,
   });
   final bool? showAllItems;
   final int itemsCount;
   final bool isScrollable;
   final List<ProductModel> products;
+  final dynamic controller;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      controller: controller,
       shrinkWrap: showAllItems ?? false,
       physics: isScrollable
           ? const AlwaysScrollableScrollPhysics()
@@ -29,9 +31,13 @@ class ProductsGridViewWidget extends StatelessWidget {
         mainAxisSpacing: 4,
         childAspectRatio: 0.6,
       ),
-      itemBuilder: (context, index) => products.isEmpty? const Center(child: CircularProgressIndicator(),):ProductItemWidget(
-        product: products[index],
-      ),
+      itemBuilder: (context, index) => products.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductItemWidget(
+              product: products[index],
+            ),
     );
   }
 }
