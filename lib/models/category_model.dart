@@ -17,4 +17,9 @@ class CategoryModel {
       updatedAt: json['updatedAt'],
     );
   }
+  static List<CategoryModel> productsFromSnapShot(List categoryFromSnapShot) {
+    return categoryFromSnapShot.map((data) {
+      return CategoryModel.fromJson(data);
+    }).toList();
+  }
 }

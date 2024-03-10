@@ -1,15 +1,11 @@
-
 import 'package:fake_store_app/helpers/api_helper.dart';
 import 'package:fake_store_app/models/user_model.dart';
 
 class UserService {
   static Future<List<UserModel>> getAllUsers() async {
-    List usersList =await  Api.get(target: 'users');
-    List<UserModel> users = [];
-    for (var user in usersList) {
-      users.add(UserModel.fromJson(user));
-    }
-    return users;
+    List usersList = await Api.get(target: 'users');
+
+    return UserModel.productsFromSnapShot(usersList);
   }
 
   // static Future<List<UserModel>> getAllUsers() async {

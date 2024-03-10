@@ -1,9 +1,11 @@
 import 'package:fake_store_app/models/category_model.dart';
 import 'package:fake_store_app/models/product_model.dart';
+import 'package:fake_store_app/models/user_model.dart';
 import 'package:fake_store_app/screens/all_users_screen.dart';
 import 'package:fake_store_app/screens/categories_screen.dart';
 import 'package:fake_store_app/screens/latest_products_screen.dart';
 import 'package:fake_store_app/services/products_service.dart';
+import 'package:fake_store_app/services/user_services.dart';
 import 'package:fake_store_app/widgets/appbar_icon.dart';
 import 'package:fake_store_app/widgets/latest_products_widget.dart';
 import 'package:fake_store_app/widgets/products_gridview.dart';
@@ -22,12 +24,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController _textEditingController;
-  // List<ProductModel> products = [];
   List<CategoryModel> categories = [];
+  List<UserModel> users = [];
   @override
   void initState() {
     _textEditingController = TextEditingController();
-    getCategories();
     super.initState();
   }
 
@@ -43,10 +44,15 @@ class _HomeScreenState extends State<HomeScreen> {
   //   super.didChangeDependencies();
   // }
 
-  Future<void> getCategories() async {
-    categories = await ProductsService.getAllCategories();
-    setState(() {});
-  }
+  // Future<void> getCategories() async {
+  //   categories = await ProductsService.getAllCategories();
+  //   setState(() {});
+  // }
+
+  // Future<void> getUsers() async {
+  //   users = await UserService.getAllUsers();
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 PageTransition(
-                  child:  CategoriesScreen(
-                    categories: categories,
+                  child: const CategoriesScreen(
                   ),
                   type: PageTransitionType.fade,
                 ),
@@ -81,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   PageTransition(
-                    child: const AllUsersScreen(),
+                    child: AllUsersScreen(
+                      users: users,
+                    ),
                     type: PageTransitionType.fade,
                   ),
                 );

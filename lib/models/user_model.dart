@@ -25,4 +25,9 @@ class UserModel {
       role: json['role'],
     );
   }
+  static List<UserModel> productsFromSnapShot(List usersFromSnapShot) {
+    return usersFromSnapShot.map((data) {
+      return UserModel.fromJson(data);
+    }).toList();
+  }
 }

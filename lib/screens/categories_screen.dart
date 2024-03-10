@@ -1,11 +1,13 @@
+import 'dart:developer';
+
 import 'package:fake_store_app/models/category_model.dart';
+import 'package:fake_store_app/services/products_service.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key, required this.categories});
-  final List<CategoryModel> categories;
+  const CategoriesScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,17 +17,33 @@ class CategoriesScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: GridView.builder(
-          itemCount: 5,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.99,
-            crossAxisSpacing: 15,
-            mainAxisSpacing: 10,
-          ),
-          itemBuilder: (context, index) =>  CategoryItem(
-            category: categories[index],
-          ),
+        child: FutureBuilder<List<CategoryModel>>(
+          future: ProductsService.getAllCategories(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Text("Error happened ${snapshot.error}");
+            } else if (snapshot.hasError) {
+              return const Text("No Data yet");
+            } else {
+              log("users ${snapshot.data}");
+              return GridView.builder(
+                itemCount: 5,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.99,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 10,
+                ),
+                itemBuilder: (context, index) => CategoryItem(
+                  category: snapshot.data![index],
+                ),
+              );
+            }
+          },
         ),
       ),
     );
@@ -34,7 +52,8 @@ class CategoriesScreen extends StatelessWidget {
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
-    super.key, required this.category,
+    super.key,
+    required this.category,
   });
   final CategoryModel category;
   @override
@@ -50,8 +69,7 @@ class CategoryItem extends StatelessWidget {
               color: Colors.red,
               size: 22,
             ),
-            imageUrl:
-                category.image!,
+            imageUrl: category.image!,
             height: size.height * 0.45,
             width: size.width * 0.45,
             boxFit: BoxFit.cover,

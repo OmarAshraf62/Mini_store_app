@@ -1,13 +1,13 @@
-
 import 'package:fake_store_app/consts/global_colors.dart';
+import 'package:fake_store_app/models/user_model.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 
 class UsersWidget extends StatelessWidget {
   const UsersWidget({
-    super.key,
+    super.key, required this.user,
   });
-
+  final UserModel user;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,26 +16,26 @@ class UsersWidget extends StatelessWidget {
         children: [
           FancyShimmerImage(
             imageUrl:
-                'https://static.wikia.nocookie.net/nickelodeon/images/4/47/Spongebob.png/revision/latest?cb=20220801042358',
+                user.avatar!,
             height: 60,
             width: 80,
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0),
+          Padding(
+            padding:const EdgeInsets.only(left: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hoey",
-                  style: TextStyle(
+                  user.name,
+                  style:const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
                 ),
                 Text(
-                  "em.@gmail.com",
-                  style: TextStyle(
+                  user.email!,
+                  style: const TextStyle(
                     fontSize: 16,
                   ),
                 ),
@@ -46,7 +46,7 @@ class UsersWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Text(
-              "Admin",
+              user.role!,
               style: TextStyle(
                 color: lightIconsColor,
                 fontWeight: FontWeight.w600,
