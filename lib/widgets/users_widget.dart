@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 class UsersWidget extends StatelessWidget {
   const UsersWidget({
-    super.key, required this.user,
+    super.key,
+    required this.user,
   });
   final UserModel user;
   @override
@@ -15,28 +16,32 @@ class UsersWidget extends StatelessWidget {
       child: Row(
         children: [
           FancyShimmerImage(
-            imageUrl:
-                user.avatar!,
+            imageUrl: user.avatar!,
             height: 60,
             width: 80,
           ),
           Padding(
-            padding:const EdgeInsets.only(left: 10.0),
+            padding: const EdgeInsets.only(left: 10.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   user.name,
-                  style:const TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
                 ),
-                Text(
-                  user.email!,
-                  style: const TextStyle(
-                    fontSize: 16,
+                SizedBox(
+                  width: 180,
+                  child: Text(
+                    user.email!,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ],

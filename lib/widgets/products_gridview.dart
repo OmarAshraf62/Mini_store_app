@@ -8,7 +8,8 @@ class ProductsGridViewWidget extends StatelessWidget {
     this.showAllItems,
     required this.itemsCount,
     required this.isScrollable,
-    required this.products, this.controller,
+    required this.products,
+    this.controller,
   });
   final bool? showAllItems;
   final int itemsCount;
@@ -29,7 +30,7 @@ class ProductsGridViewWidget extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 4,
         mainAxisSpacing: 4,
-        childAspectRatio: 0.6,
+        childAspectRatio: 0.58,
       ),
       itemBuilder: (context, index) => products.isEmpty
           ? const Center(
